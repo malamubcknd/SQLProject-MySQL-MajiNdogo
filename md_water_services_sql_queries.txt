@@ -1,0 +1,813 @@
+-- SHOW DATABASES;
+
+-- SHOW TABLES IN md_water_services;
+
+
+-- USE md_water_services;
+-- SELECT
+-- 	*
+-- FROM 
+-- 	visits
+-- LIMIT
+-- 	5;
+
+
+-- SELECT
+-- 	*
+-- FROM 
+-- 	water_source
+-- LIMIT
+-- 	5;
+
+
+-- Write an SQL query that retrieves all records from this table where the time_in_queue is more than some crazy time, say 500 min. How would it feel to queue 8 hours for water?
+-- USE md_water_services;
+-- SELECT
+-- 	*
+-- FROM 
+-- 	visits
+-- WHERE
+-- 	time_in_queue > 500
+-- LIMIT
+-- 	10;
+
+
+-- Assess the quality of water sources. They assigned a score to each source from 1, being terrible, to 10 for a good, clean water source in a home
+-- SELECT
+-- 	*
+-- FROM
+-- 	md_water_services.water_quality
+-- WHERE
+-- 	visit_count =2 AND subjective_quality_score = 10;
+
+
+-- SELECT DISTINCT type_of_water_source FROM water_source;
+
+
+-- SELECT
+-- 	*
+-- FROM 
+-- 	visits
+-- WHERE
+-- 	time_in_queue >500;
+
+
+-- SELECT
+--     v.record_id,
+--     v.source_id,
+--     v.visit_count,
+--     wq.subjective_quality_score,
+--     ws.type_of_water_source
+-- FROM
+--     visits v
+-- JOIN
+--     water_quality wq ON v.record_id = wq.record_id
+-- JOIN
+--     water_source ws ON v.source_id = ws.source_id
+-- WHERE
+--     wq.subjective_quality_score = 10 AND wq.visit_count = 2 AND type_of_water_source = 'tap_in_home';
+
+
+-- SELECT
+-- 	*
+-- FROM
+-- 	well_pollution
+-- LIMIT
+-- 	5;
+
+
+-- SELECT
+-- 	*
+-- FROM
+-- 	well_pollution
+-- WHERE
+-- 	biological > 0.01 AND results = 'clean';
+
+
+-- SELECT
+-- 	*
+-- FROM
+-- 	well_pollution
+-- LIMIT
+-- 	5;
+
+
+-- SELECT
+-- 	*
+-- FROM
+-- 	well_pollution
+-- WHERE
+-- 	description LIKE 'Clean %';
+     
+    
+-- SELECT
+-- 	COUNT(description)
+-- FROM
+-- 	well_pollution
+-- WHERE
+-- 	description LIKE 'Clean %';
+
+
+-- SET SQL_SAFE_UPDATES = 0;
+-- UPDATE
+-- 	well_pollution
+-- SET
+-- 	description = 'Bacteria: E. coli'
+-- WHERE
+-- 	description = 'Clean Bacteria: E. coli';
+
+
+-- SET SQL_SAFE_UPDATES = 0;
+-- UPDATE
+-- 	well_pollution
+-- SET
+-- 	description = 'Bacteria: Giardia Lamblia'
+-- WHERE
+-- 	description = 'Clean Bacteria: Giardia Lamblia';
+    
+
+-- SET SQL_SAFE_UPDATES = 0;
+-- UPDATE
+-- 	well_pollution
+-- SET
+-- 	results = 'Contaminated: Biological'
+-- WHERE
+-- 	biological > 0.01 AND results = 'Clean';	
+
+
+-- SELECT	
+-- 	*
+-- FROM
+-- 	well_pollution
+-- WHERE
+-- 	description LIKE "Clean_%"
+-- OR (results = "Clean" AND biological > 0.01);
+
+
+-- SELECT DISTINCT
+-- 	(pop_n)*1000
+-- FROM
+-- 	md_water_services.global_water_access
+-- WHERE
+-- 	name LIKE 'Maji Ndogo';
+
+
+-- SELECT 
+-- 	*
+-- FROM 
+-- 	md_water_services.employee
+-- WHERE
+-- 	(phone_number LIKE '%86%' OR phone_number LIKE '%11%') AND (employee_name LIKE '% A%' OR employee_name LIKE '% M%') AND position = 'Field Surveyor';
+
+
+-- SET SQL_SAFE_UPDATES=0;
+-- USE md_water_services;
+-- SELECT
+-- 	*
+-- FROM
+-- 	employee
+-- LIMIT
+-- 	10;
+
+
+-- -- This SQL query constructs new email addresses for employees in the 'employee' table using a specific format.
+-- -- Select the result of creating new email addresses as 'new_email'.
+-- SELECT
+--     CONCAT(LOWER(REPLACE(employee_name, ' ', '.')), '@ndogowater.gov') AS new_email
+-- FROM
+--     employee;
+
+
+-- -- This SQL query updates the 'email' column in the 'employee' table by constructing email addresses.
+-- -- Update the 'employee' table.
+-- -- Set the 'email' column to the result of creating email addresses.
+-- UPDATE employee
+-- SET email = CONCAT(LOWER(REPLACE(employee_name, ' ', '.')), '@ndogowater.gov');
+
+
+-- -- This SQL query selects all columns and all records from the 'employee' table.
+-- -- Select all columns from the 'employee' table.
+-- SELECT 
+--     *
+-- FROM employee;
+
+
+
+
+-- -- This SQL query calculates the length of phone numbers without removing any leading or trailing whitespace for all records in the 'employee' table.
+-- -- Select the result of applying the LENGTH function to the phone numbers as they are, without trimming.
+-- SELECT
+--     LENGTH(phone_number)
+-- FROM
+--     employee;
+
+
+-- -- This SQL query calculates the length of phone numbers after removing leading and trailing whitespace for all records in the 'employee' table.
+-- -- Select the result of applying the LENGTH function to the phone numbers after trimming leading and trailing whitespace.
+-- SELECT
+--     LENGTH(TRIM(phone_number))
+-- FROM
+--     employee;
+
+
+
+-- -- This SQL query updates the 'phone_number' column in the 'employee' table by removing leading and trailing whitespace from the phone numbers.
+-- -- Update the 'employee' table.
+-- -- Set the 'phone_number' column to the result of trimming leading and trailing whitespace from the 'phone_number' values.
+-- UPDATE employee
+-- SET phone_number = TRIM(phone_number);
+
+
+
+
+-- -- This SQL query retrieves distinct town names from the 'employee' table.
+-- -- Select distinct town names from the 'employee' table.
+-- SELECT
+--     DISTINCT(town_name)
+-- FROM
+--     employee;
+     
+
+-- -- This SQL query counts the number of employees for each distinct town name in the 'employee' table.
+-- -- Select the following columns from the 'employee' table:
+-- SELECT
+--     DISTINCT(town_name),             -- Distinct town names
+--     COUNT(employee_name) AS "Number of employee" -- Count the number of employees in each town
+-- FROM
+--     employee
+-- GROUP BY 
+--     town_name;
+
+    
+
+-- -- This SQL query counts the number of visits made by each assigned employee and displays the top 3 employees with the highest number of visits.
+-- -- Select the following columns from the 'visits' table:
+-- SELECT
+--     assigned_employee_id,         -- Assigned employee ID
+--     COUNT(assigned_employee_id) AS NumberOfVisit -- Count the number of visits made by each employee
+-- FROM
+--     visits
+-- GROUP BY
+--     assigned_employee_id
+-- ORDER BY
+--     NumberOfVisit DESC
+-- LIMIT
+--     3;
+
+
+
+-- -- This SQL query selects information for employees with assigned employee IDs "1," "30," and "34" from the 'employee' table.
+-- -- Select the following columns from the 'employee' table:
+-- SELECT
+--     assigned_employee_id, -- Assigned employee ID
+--     employee_name,       -- Name of the employee
+--     phone_number,        -- Phone number of the employee
+--     email                -- Email address of the employee
+-- FROM
+--     employee
+-- WHERE
+--     assigned_employee_id IN ("1", "30", "34");
+
+
+
+
+-- -- This SQL query counts the number of records per town in the 'location' table and groups the results by town name.
+-- -- Select the following columns from the 'location' table:
+-- SELECT
+--     town_name,                       -- Name of the town
+--     COUNT(town_name) AS Records_per_town -- Count the number of records for each town
+-- FROM
+--     location
+-- GROUP BY 
+--     town_name;
+
+
+
+-- -- This SQL query counts the number of records per province in the 'location' table and groups the results by province name.
+-- -- Select the following columns from the 'location' table:
+-- SELECT
+--     province_name,                   -- Name of the province
+--     COUNT(province_name) AS Records_per_province -- Count the number of records for each province
+-- FROM
+--     location
+-- GROUP BY 
+--     province_name;
+
+
+
+-- -- This SQL query counts the number of records per town within each province and orders the results accordingly.
+-- -- Select the following columns from the 'location' table:
+-- SELECT
+--     province_name,                  -- Name of the province
+--     town_name,                      -- Name of the town
+--     COUNT(town_name) AS Records_per_town -- Count the number of records for each town within a province
+-- FROM
+--     location
+-- -- Group the results by province_name and town_name to count records for each town within a province.
+-- GROUP BY
+--     province_name,
+--     town_name
+-- -- Order the results first by province_name in ascending order, then by Records_per_town in descending order.
+-- ORDER BY
+--     province_name ASC,
+--     Records_per_town DESC;
+
+
+
+-- -- This SQL query counts the number of sources for each location type in the 'location' table and groups the results by location type.
+-- -- Select the following columns from the 'location' table:
+-- SELECT
+--     location_type,                  -- Type of location
+--     COUNT(location_id) AS num_sources -- Count the number of sources (location_ids) for each location type
+-- -- From the 'location' table.
+-- FROM
+--     location
+-- -- Group the results by the location_type to show the count for each location type.
+-- GROUP BY
+--     location_type;
+
+
+
+-- -- Calculate the percentage of 23740 relative to the sum of 15910 and 23740, and round the result to the nearest whole number.
+-- SELECT ROUND(23740 / (15910 + 23740) * 100);
+
+
+
+-- -- This SQL query selects all columns and all rows from the 'water_source' table.
+-- -- Select all columns from the 'water_source' table.
+-- SELECT
+--     *
+-- FROM
+--     water_source;
+
+
+
+-- -- This SQL query calculates the total number of people served across all water sources.
+-- -- Calculate the sum of the 'number_of_people_served' column and provide it with the alias "Total number of people served."
+-- SELECT
+--     SUM(number_of_people_served) AS "Total number of people served"
+-- FROM
+--     water_source;
+
+
+
+
+-- -- This SQL query counts the occurrences of each type of water source and orders the results by the count in ascending order.
+-- -- Select the following columns from the 'water_source' table:
+-- SELECT
+--     type_of_water_source,               -- Type of water source
+--     COUNT(type_of_water_source) AS Water_source_count -- Count the occurrences of each type of water source
+-- FROM
+--     water_source
+-- -- Group the results by the type_of_water_source to count occurrences for each type.
+-- GROUP BY
+--     type_of_water_source
+-- -- Order the results by the count of water sources in ascending order.
+-- ORDER BY
+--     Water_source_count;
+
+  
+    
+-- -- This SQL query calculates the average number of people served by each type of water source,
+-- -- rounds the result to the nearest whole number, and orders the results by the average number of people served in descending order.
+-- -- Select the following columns from the 'water_source' table:
+-- SELECT
+--     type_of_water_source,               -- Type of water source
+--     ROUND(AVG(number_of_people_served)) AS AVG_number_of_people_served -- Calculate the rounded average number of people served by each type of water source
+-- -- From the 'water_source' table
+-- FROM
+--     water_source
+-- GROUP BY
+--     type_of_water_source
+-- ORDER BY
+--     AVG_number_of_people_served DESC;
+
+
+
+-- -- This SQL query calculates the total number of people served by each type of water source and orders the results by the total people served in descending order.
+-- -- Select the following columns from the 'water_source' table:
+-- SELECT
+--     type_of_water_source,               -- Type of water source
+--     SUM(number_of_people_served) AS Total_people_served -- Calculate the total number of people served by each type of water source
+-- FROM
+--     water_source
+-- GROUP BY
+--     type_of_water_source
+-- ORDER BY
+--     Total_people_served DESC;
+
+
+
+-- -- This SQL query calculates the total number of people served by each type of water source, 
+-- -- the percentage of people served relative to a total population of 27,628,140, and orders the results by the total people served.
+-- -- Select the following columns from the 'water_source' table:
+-- SELECT
+--     type_of_water_source,               -- Type of water source
+--     SUM(number_of_people_served) AS Total_people_served, -- Calculate the total number of people served by each type of water source
+--     (SUM(number_of_people_served) / 27628140) * 100 AS Pct_of_people_served -- Calculate the percentage of people served relative to the total population
+-- FROM
+--     water_source
+-- GROUP BY
+--     type_of_water_source
+-- ORDER BY
+--     Total_people_served DESC;
+
+
+
+-- -- This SQL query calculates the total number of people served by each type of water source (excluding "tap_in_home"),
+-- -- and ranks the types based on the total number of people served.
+-- -- Select the following columns from the 'water_source' table:
+-- SELECT
+-- 	type_of_water_source,               -- Type of water source
+-- 	SUM(number_of_people_served) AS Total_people_served, -- Calculate the total number of people served by each type of water source
+-- 	RANK()                             -- Calculate the rank
+-- 	OVER (
+-- 		ORDER BY SUM(number_of_people_served) DESC -- Order the rows by the sum of people served in descending order
+-- 	) AS Ranked_people_served
+-- FROM
+-- 	water_source
+-- WHERE 
+-- 	type_of_water_source != "tap_in_home"
+-- GROUP BY	
+-- 	type_of_water_source;
+
+
+
+-- -- This SQL query calculates a priority rank for each row in the 'water_source' table based on the number of people served,
+-- -- but excludes rows where the type of water source is "tap_in_home."
+-- -- Select the following columns from the 'water_source' table:
+-- SELECT
+-- 	source_id,                          -- ID of the water source
+-- 	type_of_water_source,               -- Type of water source
+-- 	number_of_people_served,            -- Number of people served by the water source
+-- 	RANK()                             -- Calculate the rank
+-- 	OVER (
+-- 		PARTITION BY type_of_water_source -- Partition the data by the type of water source
+-- 		ORDER BY number_of_people_served DESC -- Order the rows within each partition by the number of people served in descending order
+-- 	) AS Priority_rank
+-- FROM
+-- 	water_source
+-- WHERE 
+-- 	type_of_water_source != "tap_in_home";
+
+
+
+
+-- -- This SQL query calculates the duration in days between the earliest and latest timestamps in the 'time_of_record' column of the 'visits' table.
+-- -- Calculate the difference in days between the minimum (earliest) and maximum (latest) 'time_of_record' timestamps.
+-- SELECT
+--     timestampdiff(day, min(time_of_record), max(time_of_record)) AS Survey_duration
+-- -- From the 'visits' table.
+-- FROM
+--     visits;
+
+     
+
+-- -- This SQL query calculates the overall average queue time for all records in the 'visits' table.
+-- -- Calculate the rounded average queue time, excluding records with a queue time of 0.
+-- SELECT
+-- 	ROUND(AVG(NULLIF(time_in_queue, 0))) AS Avg_queue_time
+-- FROM
+-- 	visits;
+
+
+
+
+-- -- This SQL query calculates the average queue time for each day of the week.
+-- -- Select the day name for each record from the 'time_of_record' column.
+-- SELECT
+-- 	DAYNAME(time_of_record) AS Day_name,
+-- 	-- Calculate the rounded average queue time, excluding records with a queue time of 0.
+--     ROUND(AVG(NULLIF(time_in_queue, 0))) AS Avg_queue_time
+-- FROM
+-- 	visits
+-- GROUP BY
+-- 	Day_name;
+
+
+
+-- -- This SQL query calculates the average queue time for each hour of the day.
+-- -- Select the hour of the time_of_record and round the average queue time.
+-- SELECT
+-- 	Hour(time_of_record) AS Time_of_day,             -- Extract the hour from time_of_record.
+--     ROUND(AVG(NULLIF(time_in_queue, 0))) AS Avg_queue_time -- Calculate the rounded average queue time, ignoring zero values.
+-- FROM
+-- 	visits -- The source table is 'visits'.
+-- GROUP BY
+-- 	Time_of_day -- Group the results by the hour of the day.
+-- ORDER BY
+-- 	Time_of_day; -- Order the results by the hour of the day.
+
+
+
+-- -- This SQL query calculates the average queue time for each hour of the day.
+-- -- Select the hour part of the time_of_record and format it as "HH:00" to represent the time of day.
+-- SELECT
+-- 	TIME_FORMAT(TIME(time_of_record), "%H:00") AS Time_of_day,
+--     ROUND(AVG(NULLIF(time_in_queue, 0))) AS Avg_queue_time -- Calculate the rounded average queue time, ignoring zero values.
+-- FROM
+-- 	visits -- The source table is 'visits'.
+-- GROUP BY
+-- 	Time_of_day -- Group the results by the formatted time of day.
+-- ORDER BY
+-- 	Time_of_day; -- Order the results by the time of day.
+
+
+
+-- -- This SQL query calculates the rounded average queue time for each day of the week (Sunday to Saturday) by hour.
+-- -- Select the hour part of the time_of_record and format it as "HH:00" to represent the hour of the day.
+-- SELECT
+--     TIME_FORMAT(TIME(time_of_record), '%H:00') AS hour_of_day,
+--     -- Calculate the rounded average queue time for Sunday
+--     ROUND(AVG(
+--         CASE
+--             WHEN DAYNAME(time_of_record) = 'Sunday' THEN time_in_queue
+--             ELSE NULL
+--         END
+--     ), 0) AS Sunday,
+--     -- Calculate the rounded average queue time for Monday
+--     ROUND(AVG(
+--         CASE
+--             WHEN DAYNAME(time_of_record) = 'Monday' THEN time_in_queue
+--             ELSE NULL
+--         END
+--     ), 0) AS Monday,
+--     -- Calculate the rounded average queue time for Tuesday
+--     ROUND(AVG(
+--         CASE
+--             WHEN DAYNAME(time_of_record) = 'Tuesday' THEN time_in_queue
+--             ELSE NULL
+--         END
+--     ), 0) AS Tuesday,
+--     -- Calculate the rounded average queue time for Wednesday
+--     ROUND(AVG(
+--         CASE
+--             WHEN DAYNAME(time_of_record) = 'Wednesday' THEN time_in_queue
+--             ELSE NULL
+--         END
+--     ), 0) AS Wednesday,
+--     -- Calculate the rounded average queue time for Thursday
+--     ROUND(AVG(
+--         CASE
+--             WHEN DAYNAME(time_of_record) = 'Thursday' THEN time_in_queue
+--             ELSE NULL
+--         END
+--     ), 0) AS Thursday,
+--     -- Calculate the rounded average queue time for Friday
+--     ROUND(AVG(
+--         CASE
+--             WHEN DAYNAME(time_of_record) = 'Friday' THEN time_in_queue
+--             ELSE NULL
+--         END
+--     ), 0) AS Friday,
+--     -- Calculate the rounded average queue time for Saturday
+--     ROUND(AVG(
+--         CASE
+--             WHEN DAYNAME(time_of_record) = 'Saturday' THEN time_in_queue
+--             ELSE NULL
+--         END
+--     ), 0) AS Saturday
+-- FROM
+--     visits
+-- WHERE
+--     time_in_queue != 0 -- Exclude rows with zero queue times
+-- GROUP BY
+--     hour_of_day
+-- ORDER BY
+--     hour_of_day;
+
+
+
+Insights from our sql analysis
+1. Most water sources are rural.
+2. 43% of our people are using shared taps. 2000 people often share one tap.
+3. 31% of our population has water infrastructure in their homes, but within that group, 45% face non-functional systems due to issues with pipes,
+pumps, and reservoirs.
+4. 18% of our people are using wells of which, but within that, only 28% are clean..
+5. Our citizens often face long wait times for water, averaging more than 120 minutes.
+6. In terms of queues:
+- Queues are very long on Saturdays.
+- Queues are longer in the mornings and evenings.
+- Wednesdays and Sundays have the shortest queues.
+
+
+I have added an auditor_report csv file to this directory
+To make sure we have the same names, use this query to create the table first, then Import the CSV file:
+DROP TABLE IF EXISTS `auditor_report`;
+CREATE TABLE `auditor_report` (
+`location_id` VARCHAR(32),
+`type_of_water_source` VARCHAR(64),
+`true_water_source_score` int DEFAULT NULL,
+`statements` VARCHAR(255)
+);
+
+
+
+-- CREATE VIEW Incorrect_records AS (
+-- SELECT
+-- auditor_report.location_id,
+-- visits.record_id,
+-- employee.employee_name,
+-- auditor_report.true_water_source_score AS auditor_score,
+-- wq.subjective_quality_score AS employee_score,
+-- auditor_report.statements AS statements
+-- FROM
+-- auditor_report
+-- JOIN
+-- visits
+-- ON auditor_report.location_id = visits.location_id
+-- JOIN
+-- water_quality AS wq
+-- ON visits.record_id = wq.record_id
+-- JOIN
+-- employee
+-- ON employee.assigned_employee_id = visits.assigned_employee_id
+-- WHERE
+-- visits.visit_count =1
+-- AND auditor_report.true_water_source_score != wq.subjective_quality_score);
+
+
+
+-- WITH error_count AS ( -- This CTE calculates the number of mistakes each employee made
+-- SELECT
+-- employee_name,
+-- COUNT(employee_name) AS number_of_mistakes
+-- FROM
+-- Incorrect_records
+-- /*
+-- Incorrect_records is a view that joins the audit report to the database
+-- for records where the auditor and
+-- employees scores are different*
+-- /
+-- GROUP BY
+-- employee_name)
+-- -- Query
+-- SELECT * FROM error_count;
+
+
+
+-- WITH error_count AS ( -- This CTE calculates the number of mistakes each employee made
+-- SELECT
+-- employee_name,
+-- COUNT(employee_name) AS number_of_mistakes
+-- FROM
+-- Incorrect_records
+-- /*
+-- Incorrect_records is a view that joins the audit report to the database
+-- for records where the auditor and
+-- employees scores are different*/
+-- GROUP BY
+-- employee_name),
+-- suspect_list AS (-- This CTE SELECTS the employees with above−average mistakes
+-- SELECT
+-- employee_name,
+-- number_of_mistakes
+-- FROM
+-- error_count
+-- WHERE
+-- number_of_mistakes > (SELECT AVG(number_of_mistakes) FROM error_count))
+-- -- This query filters all of the records where the "corrupt" employees gathered data.
+-- SELECT
+-- employee_name,
+-- location_id,
+-- statements
+-- FROM
+-- Incorrect_records
+-- WHERE
+-- employee_name in (SELECT employee_name FROM suspect_list);
+
+
+
+
+-- CREATE VIEW combined_analysis_table AS
+-- −− This table assembles data from different tables into one to simplify analysis
+-- SELECT
+-- water_source.type_of_water_source,
+-- location.town_name,
+-- location.province_name,
+-- location.location_type,
+-- water_source.number_of_people_served,
+-- visits.time_in_queue,
+-- well_pollution.results
+-- FROM
+-- visits
+-- LEFT JOIN
+-- well_pollution
+-- ON well_pollution.source_id = visits.source_id
+-- INNER JOIN
+-- location
+-- ON location.location_id = visits.location_id
+-- INNER JOIN
+-- water_source
+-- ON water_source.source_id = visits.source_id
+-- WHERE
+-- visits.visit_count = 1;
+
+
+
+-- WITH province_totals AS (-- This CTE calculates the population of each province
+-- SELECT
+-- province_name,
+-- SUM(people_served) AS total_ppl_serv
+-- FROM
+-- combined_analysis_table
+-- GROUP BY
+-- province_name
+-- )
+-- SELECT
+-- ct.province_name,
+-- -- These case statements create columns for each type of source.
+-- -- The results are aggregated and percentages are calculated
+-- ROUND((SUM(CASE WHEN source_type = 'river'
+-- THEN people_served ELSE 0 END) * 100.0 / pt.total_ppl_serv), 0) AS river,
+-- ROUND((SUM(CASE WHEN source_type = 'shared_tap'
+-- THEN people_served ELSE 0 END) * 100.0 / pt.total_ppl_serv), 0) AS shared_tap,
+-- ROUND((SUM(CASE WHEN source_type = 'tap_in_home'
+-- THEN people_served ELSE 0 END) * 100.0 / pt.total_ppl_serv), 0) AS tap_in_home,
+-- ROUND((SUM(CASE WHEN source_type = 'tap_in_home_broken'
+-- THEN people_served ELSE 0 END) * 100.0 / pt.total_ppl_serv), 0) AS tap_in_home_broken,
+-- ROUND((SUM(CASE WHEN source_type = 'well'
+-- THEN people_served ELSE 0 END) * 100.0 / pt.total_ppl_serv), 0) AS well
+-- FROM
+-- combined_analysis_table ct
+-- JOIN
+-- province_totals pt ON ct.province_name = pt.province_name
+-- GROUP BY
+-- ct.province_name
+-- ORDER BY
+-- ct.province_name;
+
+
+
+-- WITH town_totals AS (−− This CTE calculates the population of each town
+-- −− Since there are two Harare towns, we have to group by province_name and town_name
+-- SELECT province_name, town_name, SUM(people_served) AS total_ppl_serv
+-- FROM combined_analysis_table
+-- GROUP BY province_name,town_name
+-- )
+-- SELECT
+-- ct.province_name,
+-- ct.town_name,
+-- ROUND((SUM(CASE WHEN source_type = 'river'
+-- THEN people_served ELSE 0 END) * 100.0 / tt.total_ppl_serv), 0) AS river,
+-- ROUND((SUM(CASE WHEN source_type = 'shared_tap'
+-- THEN people_served ELSE 0 END) * 100.0 / tt.total_ppl_serv), 0) AS shared_tap,
+-- ROUND((SUM(CASE WHEN source_type = 'tap_in_home'
+-- THEN people_served ELSE 0 END) * 100.0 / tt.total_ppl_serv), 0) AS tap_in_home,
+-- ROUND((SUM(CASE WHEN source_type = 'tap_in_home_broken'
+-- THEN people_served ELSE 0 END) * 100.0 / tt.total_ppl_serv), 0) AS tap_in_home_broken,
+-- ROUND((SUM(CASE WHEN source_type = 'well'
+-- THEN people_served ELSE 0 END) * 100.0 / tt.total_ppl_serv), 0) AS well
+-- FROM
+-- combined_analysis_table ct
+-- JOIN −− Since the town names are not unique, we have to join on a composite key
+-- town_totals tt ON ct.province_name = tt.province_name AND ct.town_name = tt.town_name
+-- GROUP BY −− We group by province first, then by town.
+-- ct.province_name,
+-- ct.town_name
+-- ORDER BY
+-- ct.town_name;
+
+
+
+-- CREATE TABLE Project_progress (
+-- Project_id SERIAL PRIMARY KEY,
+-- /* Project_id −− Unique key for sources in case we visit the same
+-- source more than once in the future.
+-- */
+-- source_id VARCHAR(20) NOT NULL REFERENCES water_source(source_id) ON DELETE CASCADE ON UPDATE CASCADE,
+-- /* source_id −− Each of the sources we want to improve should exist,
+-- and should refer to the source table. This ensures data integrity.
+-- */
+-- Address VARCHAR(50), −− Street address
+-- Town VARCHAR(30),
+-- Province VARCHAR(30),
+-- Source_type VARCHAR(50),
+-- Improvement VARCHAR(50), −− What the engineers should do at that place
+-- Source_status VARCHAR(50) DEFAULT 'Backlog' CHECK (Source_status IN ('Backlog', 'In progress', 'Complete')),
+-- /* Source_status −− We want to limit the type of information engineers can give us, so we
+-- limit Source_status.
+-- − By DEFAULT all projects are in the "Backlog" which is like a TODO list.
+-- − CHECK() ensures only those three options will be accepted. This helps to maintain clean data.
+-- */
+-- Date_of_completion DATE, −− Engineers will add this the day the source has been upgraded.
+-- Comments TEXT −− Engineers can leave comments. We use a TEXT type that has no limit on char length
+-- );
+
+
+
+-- CREATE TABLE Project_progress (
+-- Project_id SERIAL PRIMARY KEY,
+-- source_id VARCHAR(20) NOT NULL REFERENCES water_source(source_id) ON DELETE CASCADE ON UPDATE CASCADE,
+-- Address VARCHAR(50),
+-- Town VARCHAR(30),
+-- Province VARCHAR(30),
+-- Source_type VARCHAR(50),
+-- Improvement VARCHAR(50),
+-- Source_status VARCHAR(50) DEFAULT 'Backlog' CHECK (Source_status IN ('Backlog', 'In progress', 'Complete')),
+-- Date_of_completion DATE,
+-- Comments TEXT
+-- );
+
+
+
